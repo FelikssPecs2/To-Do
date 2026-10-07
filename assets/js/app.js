@@ -334,6 +334,18 @@ function canUseProject(project) {
     return project != null && project.members.indexOf(me.id) != -1;
 }
 
+// administrators: projekta īpašnieks vai dalībnieks, kuram dota admina loma
+function isAdmin(project) {
+    if (project == null) {
+        return false;
+    }
+    if (project.ownerId == me.id) {
+        return true;
+    }
+    var admins = project.admins || [];
+    return admins.indexOf(me.id) != -1;
+}
+
 function fillMembers(project, selectedId) {
     var select = document.getElementById('assignee');
     var users = load('users');
@@ -360,6 +372,13 @@ function taskNewPage() {
             window.location.href = 'projects.html';
             return;
         }
+
+        // uzdevumus projektā veido tikai administrators
+        if (!isAdmin(project)) {
+            window.location.href = 'project.html?id=' + project.id;
+            return;
+        }
+
         fillMembers(project, null);
     }
 
@@ -400,6 +419,9 @@ function taskEditPage() {
         return;
     }
 
+    var admin = true;     // personīgam uzdevumam vienmēr drīkst visu
+    var canTick = true;   // vai drīkst atzīmēt kā pabeigtu
+
     // tiesību pārbaude
     if (task.projectId) {
         project = findById(load('projects'), task.projectId);
@@ -407,6 +429,9 @@ function taskEditPage() {
             window.location.href = 'tasks.html';
             return;
         }
+
+        admin = isAdmin(project);
+        canTick = admin || task.assignee == me.id;
         fillMembers(project, task.assignee);
     } else if (task.userId != me.id) {
         window.location.href = 'tasks.html';
@@ -421,6 +446,22 @@ function taskEditPage() {
     document.getElementById('pri').value = task.priority;
     document.getElementById('status').value = task.done ? 'Pabeigts' : 'Nepabeigts';
 
+    // parasts dalībnieks drīkst mainīt tikai statusu (un tikai savam uzdevumam)
+    if (!admin) {
+        var locked = ['title', 'desc', 'due', 'pri', 'assignee'];
+
+        for (var i = 0; i < locked.length; i++) {
+            document.getElementById(locked[i]).disabled = true;
+        }
+
+        document.getElementById('deleteBtn').hidden = true;
+
+        if (!canTick) {
+            document.getElementById('status').disabled = true;
+            document.querySelector('#form button[type="submit"]').hidden = true;
+        }
+    }
+
     document.getElementById('form').addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -430,21 +471,33 @@ function taskEditPage() {
 
         var assignee = document.getElementById('assignee').value;
 
-        task.title = document.getElementById('title').value.trim();
-        task.description = document.getElementById('desc').value.trim();
-        task.due = document.getElementById('due').value;
-        task.priority = document.getElementById('pri').value;
-        task.done = (document.getElementById('status').value == 'Pabeigts');
-
-        if (project) {
-            task.assignee = assignee ? Number(assignee) : null;
+        if (!canTick) {
+            return;
         }
+
+        // visus laukus maina tikai administrators
+        if (admin) {
+            task.title = document.getElementById('title').value.trim();
+            task.description = document.getElementById('desc').value.trim();
+            task.due = document.getElementById('due').value;
+            task.priority = document.getElementById('pri').value;
+
+            if (project) {
+                task.assignee = assignee ? Number(assignee) : null;
+            }
+        }
+
+        task.done = (document.getElementById('status').value == 'Pabeigts');
 
         save('tasks', tasks);
         window.location.href = backPage;
     });
 
     document.getElementById('deleteBtn').addEventListener('click', function () {
+        if (!admin) {
+            return;
+        }
+
         if (!confirm('Vai tiešām dzēst šo uzdevumu?')) {
             return;
         }
@@ -510,7 +563,7 @@ function projectsPage() {
     document.getElementById('projectList').innerHTML = html;
 }
 
-function createInvitation(projectId, user) {
+function createInvitation(projectId, user, makeAdmin) {
     var invitations = load('invitations');
 
     invitations.push({
@@ -518,6 +571,7 @@ function createInvitation(projectId, user) {
         projectId: projectId,
         userId: user.id,
         invitedBy: me.id,
+        admin: makeAdmin,
         status: 'pending'
     });
 
@@ -566,14 +620,15 @@ function projectNewPage() {
             ownerId: me.id,
             name: document.getElementById('name').value.trim(),
             description: document.getElementById('desc').value.trim(),
-            members: [me.id]
+            members: [me.id],
+            admins: [me.id]
         };
 
         projects.push(project);
         save('projects', projects);
 
         if (invited != null) {
-            createInvitation(project.id, invited);
+            createInvitation(project.id, invited, document.getElementById('role').value == 'admin');
         }
 
         window.location.href = 'project.html?id=' + project.id;
@@ -592,15 +647,22 @@ function projectPage() {
 
     document.title = project.name + ' – ToDo';
     document.getElementById('projName').textContent = project.name;
-    document.getElementById('projSub').textContent = 'Projekts / ' + project.name + ' · ' + project.members.length + ' dalībnieki';
 
-    document.getElementById('addTask').href = 'task-new.html?project=' + project.id;
+    var admin = isAdmin(project);
+    var role = admin ? 'administrators' : 'dalībnieks';
 
-    // uzaicināt var tikai īpašnieks
+    document.getElementById('projSub').textContent =
+        'Projekts / ' + project.name + ' · ' + project.members.length + ' dalībnieki · Tava loma: ' + role;
+
+    // uzdevumus veido un cilvēkus uzaicina tikai administrators
+    var addTaskBtn = document.getElementById('addTask');
     var inviteBtn = document.getElementById('inviteBtn');
-    if (project.ownerId == me.id) {
+
+    if (admin) {
+        addTaskBtn.href = 'task-new.html?project=' + project.id;
         inviteBtn.href = 'invite.html?id=' + project.id;
     } else {
+        addTaskBtn.remove();
         inviteBtn.remove();
     }
 
@@ -617,8 +679,8 @@ function projectPage() {
 function invitePage() {
     var project = findById(load('projects'), getParam('id'));
 
-    // uzaicināt drīkst tikai projekta īpašnieks
-    if (project == null || project.ownerId != me.id) {
+    // uzaicināt drīkst tikai administrators
+    if (project == null || !isAdmin(project)) {
         window.location.href = 'projects.html';
         return;
     }
@@ -651,7 +713,7 @@ function invitePage() {
             }
         }
 
-        createInvitation(project.id, user);
+        createInvitation(project.id, user, document.getElementById('role').value == 'admin');
         window.location.href = 'project.html?id=' + project.id;
     });
 }
@@ -669,7 +731,7 @@ function invitationsPage() {
 
             html += '<div class="card">' +
                     '<h3>' + escapeHtml(sender.name) + ' uzaicina tevi</h3>' +
-                    '<div class="m">Projekts: ' + escapeHtml(project.name) + '</div>' +
+                    '<div class="m">Projekts: ' + escapeHtml(project.name) + ' · Loma: ' + (list[i].admin ? 'administrators' : 'dalībnieks') + '</div>' +
                     '<div class="g">Gaida atbildi</div>' +
                     '<button class="btn" data-accept="' + list[i].id + '">Pieņemt uzaicinājumu</button><br>' +
                     '<button class="link-btn" data-decline="' + list[i].id + '">Noraidīt</button>' +
@@ -696,6 +758,15 @@ function invitationsPage() {
 
             inv.status = 'accepted';
             project.members.push(me.id);
+
+            // ja uzaicināts kā administrators, pievienojam admin sarakstam
+            if (inv.admin) {
+                if (!project.admins) {
+                    project.admins = [];
+                }
+                project.admins.push(me.id);
+            }
+
             save('projects', projects);
             save('invitations', invitations);
             show();
