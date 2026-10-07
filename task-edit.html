@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="utf-8">
+        <title>Uzdevuma rediģēšana – ToDo</title>
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+
+    <body data-page="task-edit">
+        <header class="nav">
+            <div class="nav-in">
+                <a class="logo-box" href="dashboard.html">
+                    <img src="assets/img/logo.png" alt="ToDo">
+                </a>
+                <nav class="links" id="nav">
+                    <a href="dashboard.html">Pārskats</a>
+                    <a href="tasks.html">Mani uzdevumi</a>
+                    <a href="projects.html">Projekti</a>
+                    <a href="invitations.html">Uzaicinājumi</a>
+                    <a href="login.html">Izrakstīties</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="wrap">
+            <div class="crumb">Darba telpa / Planner</div>
+            <h1>Uzdevuma rediģēšana</h1>
+            <p class="sub">Precizē detaļas un nākamo soli.</p>
+            <form id="form" novalidate>
+                <div class="card field">
+                    <label for="title">Nosaukums</label>
+                    <input id="title" name="title" type="text" data-req>
+                </div>
+                <div class="card field">
+                    <label for="desc">Apraksts</label>
+                    <input id="desc" name="desc" type="text">
+                </div>
+                <div class="card field">
+                    <label for="due">Termiņš</label>
+                    <input id="due" name="due" type="date" data-req>
+                </div>
+                <div class="card field">
+                    <label for="pri">Prioritāte</label>
+                    <select id="pri" name="pri">
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
+                <div class="card field">
+                    <label for="status">Statuss</label>
+                    <select id="status" name="status">
+                        <option>Nepabeigts</option>
+                        <option>Pabeigts</option>
+                    </select>
+                </div>
+                <div class="card field" id="assignBox" hidden>
+                    <label for="assignee">Piešķirts dalībniekam</label>
+                    <select id="assignee" name="assignee"></select>
+                </div>
+                <div class="btn-row">
+                    <button class="btn" type="submit">Saglabāt izmaiņas</button>
+                    <button class="link-btn" type="button" id="deleteBtn">Dzēst uzdevumu</button>
+                </div>
+            </form>
+        </main>
+
+        <script src="assets/js/app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="utf-8">
+        <title>Projekts – ToDo</title>
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+
+    <body data-page="project">
+        <header class="nav">
+            <div class="nav-in">
+                <a class="logo-box" href="dashboard.html">
+                    <img src="assets/img/logo.png" alt="ToDo">
+                </a>
+                <nav class="links" id="nav">
+                    <a href="dashboard.html">Pārskats</a>
+                    <a href="tasks.html">Mani uzdevumi</a>
+                    <a href="projects.html" class="on">Projekti</a>
+                    <a href="invitations.html">Uzaicinājumi</a>
+                    <a href="login.html">Izrakstīties</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="wrap">
+            <div class="crumb">Darba telpa / Planner</div>
+            <h1 id="projName"></h1>
+            <p class="sub" id="projSub"></p>
+            <a class="btn" id="addTask" href="task-new.html">Pievienot uzdevumu</a>
+            <a class="btn" id="inviteBtn" href="invite.html">Uzaicināt dalībnieku</a>
+            <div class="stats">
+                <span id="st1"></span>
+                <span id="st2"></span>
+                <span id="st3"></span>
+            </div>
+            <div class="filters">
+                <button class="on" data-status="all">Visi uzdevumi</button>
+                <button data-status="active">Aktīvie</button>
+                <button data-status="done">Pabeigtie</button>
+                <span class="sp"></span>
+                <label>
+                    Prioritāte:
+                    <select id="fPri">
+                        <option value="all">visas</option>
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </label>
+                <label>
+                    Kārtot:
+                    <select id="fSort">
+                        <option value="due">termiņš</option>
+                        <option value="pri">prioritāte</option>
+                    </select>
+                </label>
+            </div>
+            <div id="taskList"></div>
+        </main>
+
+        <script src="assets/js/app.js"></script>
+    </body>
+</html>

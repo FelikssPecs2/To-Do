@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="utf-8">
+        <title>Uzaicināt dalībnieku – ToDo</title>
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+
+    <body data-page="invite">
+        <header class="nav">
+            <div class="nav-in">
+                <a class="logo-box" href="dashboard.html">
+                    <img src="assets/img/logo.png" alt="ToDo">
+                </a>
+                <nav class="links" id="nav">
+                    <a href="dashboard.html">Pārskats</a>
+                    <a href="tasks.html">Mani uzdevumi</a>
+                    <a href="projects.html">Projekti</a>
+                    <a href="invitations.html">Uzaicinājumi</a>
+                    <a href="login.html">Izrakstīties</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="wrap">
+            <div class="crumb">Darba telpa / Planner</div>
+            <h1>Uzaicināt dalībnieku</h1>
+            <p class="sub">Uzaicinājums parādīsies lietotāja sadaļā “Uzaicinājumi”.</p>
+            <form id="form" novalidate>
+                <div class="card field">
+                    <label for="email">Dalībnieka e-pasts</label>
+                    <input id="email" name="email" type="email" placeholder="kolegis@epasts.lv" data-req>
+                    <div class="hint">Lietotājam jābūt reģistrētam sistēmā</div>
+                </div>
+                <button class="btn" type="submit">Nosūtīt uzaicinājumu</button>
+            </form>
+        </main>
+
+        <script src="assets/js/app.js"></script>
+    </body>
+</html>

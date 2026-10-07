@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="utf-8">
+        <title>Reģistrācija – ToDo</title>
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+
+    <body data-page="register">
+        <main class="auth">
+            <form id="form" class="auth-card" novalidate>
+                <img class="lg" src="assets/img/logo.png" alt="ToDo">
+                <h1>Izveido savu kontu</h1>
+                <p>Sāc plānot savu dienu un strādāt kopā.</p>
+                <label class="a-lbl" for="name">Vārds</label>
+                <input class="a-in" id="name" name="name" placeholder="Tavs vārds" data-req>
+                <label class="a-lbl" for="email">E-posts</label>
+                <input class="a-in" id="email" name="email" type="email" placeholder="vards@epasts.lv" data-req>
+                <label class="a-lbl" for="pw">Parole</label>
+                <input class="a-in" id="pw" name="pw" type="password" placeholder="Vismaz 8 simboli" data-req>
+                <button class="btn" type="submit">Izveidot kontu — demo</button>
+                <a class="alt" href="login.html">Jau ir konts? Pieslēdzies</a>
+                <p class="note">Dizaina demonstrācija. Dati netiek saglabāti.</p>
+            </form>
+        </main>
+
+        <script src="assets/js/app.js"></script>
+    </body>
+</html>
