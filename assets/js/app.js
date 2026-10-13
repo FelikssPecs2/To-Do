@@ -191,8 +191,12 @@ async function checkSession() {
 
 checkSession();
 
+
 function startPage() {
-    if (me != null) updateNav();
+    if (me != null) {
+        updateNav();
+        setupDeleteAccount();
+    }
 
     if (page === 'login') loginPage();
     if (page === 'register') registerPage();
@@ -207,7 +211,6 @@ function startPage() {
 
     setupFilters();
 }
-
 /* ===== IZVĒLNE ===== */
 
 async function pendingInvitations() {
@@ -882,4 +885,43 @@ function setupFilters() {
     }
 
     updateTasks();
+}
+
+/* ===== KONTA DZĒŠANA ===== */
+
+function setupDeleteAccount() {
+    var button = document.getElementById('deleteAccountBtn');
+
+    if (!button || button.dataset.bound === 'true') {
+        return;
+    }
+
+    button.dataset.bound = 'true';
+
+    button.addEventListener('click', async function () {
+        var confirmed = confirm(
+            'Vai tiešām vēlies dzēst savu kontu? ' +
+            'Šo darbību nevarēs atcelt, un tavi dati tiks dzēsti.'
+        );
+
+        if (!confirmed) return;
+
+        var finalConfirmation = confirm(
+            'Pēdējais brīdinājums: dzēst kontu neatgriezeniski?'
+        );
+
+        if (!finalConfirmation) return;
+
+        button.disabled = true;
+
+        try {
+            await api('api/auth.php?action=delete-account', 'POST');
+
+            alert('Konts ir dzēsts.');
+            window.location.href = 'login.html';
+        } catch (error) {
+            alert(error.message || 'Neizdevās dzēst kontu.');
+            button.disabled = false;
+        }
+    });
 }

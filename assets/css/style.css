@@ -375,3 +375,19 @@ a.card:hover {
 [hidden] {
     display: none !important;
 }
+button.dzest {
+    background-color: #fff1f2 !important;
+    color: #be123c !important;
+    border: 1px solid #fecdd3 !important;
+    border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 2px 5px rgba(190, 18, 60, 0.10);
+    transition: all 0.2s ease;
+}
+
+button.dzest:hover {
+    background-color: #ffe4e6 !important;
+    border-color: #fda4af !important;
+    box-shadow: 0 4px 10px rgba(190, 18, 60, 0.16);
+    transform: translateY(-1px);
+}
