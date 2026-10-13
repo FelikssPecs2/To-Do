@@ -1,5 +1,4 @@
 
-/* ===== PALĪGFUNKCIJAS ===== */
 
 var months = [
     'janvāris', 'februāris', 'marts', 'aprīlis', 'maijs', 'jūnijs',
@@ -58,7 +57,7 @@ function escapeHtml(text) {
         .replace(/'/g, '&#039;');
 }
 
-/* Pārveido MySQL lauku nosaukumus uz JavaScript nosaukumiem */
+
 
 function normalizeTask(task) {
     return {
@@ -107,7 +106,7 @@ function showMessage(error) {
     alert(error.message || 'Radās neparedzēta kļūda.');
 }
 
-/* ===== API DATU IELĀDE ===== */
+
 
 async function loadTasks() {
     var data = await api('api/tasks.php');
@@ -163,7 +162,7 @@ async function respondToInvitation(id, action) {
     });
 }
 
-/* ===== PIESLĒGŠANĀS STATUSS ===== */
+
 
 var page = document.body.dataset.page;
 var me = null;
@@ -211,7 +210,7 @@ function startPage() {
 
     setupFilters();
 }
-/* ===== IZVĒLNE ===== */
+
 
 async function pendingInvitations() {
     return await loadInvitations();
@@ -250,7 +249,7 @@ async function updateNav() {
     }
 }
 
-/* ===== FORMU VALIDĀCIJA ===== */
+
 
 function checkForm(form) {
     var fields = form.querySelectorAll('[data-req]');
@@ -301,7 +300,6 @@ function showError(field, message) {
     }
 }
 
-/* ===== REĢISTRĀCIJA UN PIESLĒGŠANĀS ===== */
 
 function registerPage() {
     document.getElementById('form').addEventListener('submit', async function (e) {
@@ -346,7 +344,7 @@ function loginPage() {
     });
 }
 
-/* ===== UZDEVUMU SARAKSTS ===== */
+
 
 function taskMeta(task) {
     var parts = [];
@@ -600,7 +598,7 @@ async function taskEditPage() {
     }
 }
 
-/* ===== PROJEKTI ===== */
+
 
 function percentDone(list) {
     if (list.length === 0) return 0;
@@ -717,7 +715,7 @@ async function projectPage() {
     }
 }
 
-/* ===== UZAICINĀJUMI ===== */
+
 
 async function invitePage() {
     try {
@@ -803,7 +801,7 @@ async function invitationsPage() {
     await show();
 }
 
-/* ===== FILTRI UN KĀRTOŠANA ===== */
+
 
 function setupFilters() {
     var taskList = document.getElementById('taskList');
@@ -887,7 +885,7 @@ function setupFilters() {
     updateTasks();
 }
 
-/* ===== KONTA DZĒŠANA ===== */
+
 
 function setupDeleteAccount() {
     var button = document.getElementById('deleteAccountBtn');

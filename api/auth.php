@@ -79,7 +79,6 @@ if ($action === 'me') {
     out(['user' => $stmt->fetch()]);
 }
 
-/* ===== KONTA DZĒŠANA ===== */
 
 if ($action === 'delete-account') {
     requireLogin();
@@ -94,7 +93,6 @@ if ($action === 'delete-account') {
     try {
         $pdo->beginTransaction();
 
-        // Atrodam lietotāja projektus.
         $stmt = $pdo->prepare(
             "SELECT id FROM projects WHERE owner_id = ?"
         );
@@ -102,7 +100,6 @@ if ($action === 'delete-account') {
 
         $ownedProjects = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-        // Dzēšam lietotāja projektu datus.
         foreach ($ownedProjects as $projectId) {
             $pdo->prepare(
                 "DELETE FROM tasks WHERE project_id = ?"
@@ -121,30 +118,27 @@ if ($action === 'delete-account') {
             )->execute([$projectId]);
         }
 
-        // Dzēšam personīgos uzdevumus un uzdevumus,
-        // kas piešķirti šim lietotājam.
         $pdo->prepare(
             "DELETE FROM tasks WHERE user_id = ? OR assignee_id = ?"
         )->execute([$me, $me]);
 
-        // Dzēšam saņemtos un nosūtītos uzaicinājumus.
+
         $pdo->prepare(
             "DELETE FROM invitations WHERE user_id = ? OR invited_by = ?"
         )->execute([$me, $me]);
 
-        // Noņemam dalību citu lietotāju projektos.
+      
         $pdo->prepare(
             "DELETE FROM project_members WHERE user_id = ?"
         )->execute([$me]);
 
-        // Dzēšam kontu.
+   
         $pdo->prepare(
             "DELETE FROM users WHERE id = ?"
         )->execute([$me]);
 
         $pdo->commit();
 
-        // Beidzam lietotāja sesiju.
         $_SESSION = [];
         session_destroy();
 

@@ -391,3 +391,89 @@ button.dzest:hover {
     box-shadow: 0 4px 10px rgba(190, 18, 60, 0.16);
     transform: translateY(-1px);
 }
+
+/* RESPONSĪVAIS DIZAINS  */
+
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+@media (max-width: 900px) {
+    .nav-in {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .container,
+    main {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .links {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .nav-in {
+        height: auto;
+        min-height: 52px;
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .links {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+
+    .links a {
+        display: block;
+        padding: 10px;
+    }
+
+    .container,
+    main {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    button,
+    .btn {
+        max-width: 100%;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        max-width: 100%;
+    }
+}

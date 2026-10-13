@@ -47,7 +47,7 @@ if ($method === 'POST') {
         out(['ok' => true]);
     }
 
-    // Accept / decline existing invitation
+
     $id = (int)($d['id'] ?? 0);
     $stmt = $pdo->prepare("SELECT * FROM invitations WHERE id = ? AND user_id = ?");
     $stmt->execute([$id, $me]);
