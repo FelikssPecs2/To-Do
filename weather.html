@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laikapstākļi – ToDo</title>
+    <link rel="stylesheet" href="assets/css/weather.css">
+</head>
+
+<body>
+    <header class="nav">
+        <div class="nav-in">
+            <a class="logo-box" href="dashboard.html">
+                <img src="assets/img/logo.png" alt="ToDo">
+            </a>
+
+            <nav class="links" id="nav">
+                <a href="dashboard.html">Overview</a>
+                <a href="tasks.html">My tasks</a>
+                <a href="projects.html">Projects</a>
+                <a href="invitations.html">Invites</a>
+                <a href="login.html">Logout</a>
+                <a href="weather.html" class="on">weather</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="wrap">
+    <div class="search-container">
+        <input type="text" id="cityInput" class="search-input" placeholder="City name" autocomplete="on">
+        <button type="submit" id="searchBtn" class="search-button">Search</button>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
+
+    <div id="errorBox" class="error-box" style="display: none;">
+        <div class="error-title">Error</div>
+        <div class="error-msg">
+            City not found<br>
+            (Enter full name,City code,Country code)
+        </div>
+    </div>
+
+    <div class="weather-result-container">
+        <span class="weather-city" id="cityName"></span>
+        <span class="weather-condition" id="weatherDesc"></span>
+        <span class="weather-icon" id="weatherIcon"></span>
+        <span class="weather-temp" id="weatherTemp"></span>
+        <span class="weather-time" id="weatherTime"></span>
+    </div>
+
+    <div class="weather-grid">
+        <div class="weather-card">
+            <span class="card-title">HUMIDITY</span>
+            <span class="card-value" id="humidityVal"></span>
+        </div>
+        <div class="weather-card">
+            <span class="card-title">Wind</span>
+            <span class="card-value" id="windVal"></span>
+        </div>
+        <div class="weather-card">
+            <span class="card-title">Max/Min Temp</span>
+            <span class="card-value" id="minMaxTempVal"></span>
+        </div>
+        <div class="weather-card">
+            <span class="card-title">Air Pressure</span>
+            <span class="card-value" id="pressureVal"></span>
+        </div>
+        <div class="weather-card">
+            <span class="card-title">Vision</span>
+            <span class="card-value" id="visibilityVal"></span>
+        </div>
+        <div class="weather-card">
+            <span class="card-title">Feels like</span>
+            <span class="card-value" id="feelsLikeVal"></span>
+        </div>
+    </div>
+</main>
+
+    <script src="assets/js/weather.js"></script>
+</body>
+</html>

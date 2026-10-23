@@ -1,0 +1,327 @@
+:root {
+    --navy: #16213e;
+    --navy2: #1a2748;
+    --bg: #f3f6fb;
+    --ink: #1a2540;
+    --blue: #2563eb;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    color: var(--ink);
+    padding-bottom: 50px;
+}
+
+body.time-night {
+  background: linear-gradient(to bottom, #734b6d,  #42275a);
+}
+
+body.time-morning {
+  background: linear-gradient(to bottom, #fceabb, #f8b500);
+}
+
+body.time-day {
+  background: linear-gradient(to bottom, #2980b9, #6dd5fa, #ffffff);
+}
+
+body.time-evening {
+  background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.nav {
+    background: linear-gradient(180deg, #16213e, #1a2748);
+    border-bottom: 2px solid #22305a;
+    position: relative;
+}
+
+.nav-in {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.logo-box {
+    background: #fff;
+    border-radius: 6px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    height: 52px;
+    flex-shrink: 0;
+}
+
+.logo-box img {
+    height: 34px;
+    width: auto;
+    display: block;
+}
+
+.links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.links a {
+    color: #b9c4dc;
+    font-size: 12.5px;
+    font-weight: 500;
+}
+
+.links a.on,
+.links a:hover {
+    color: #fff;
+}
+
+.links a.on {
+    font-weight: 700;
+}
+
+/* MEKLĒŠANAS LAUKS UN IETEIKUMI */
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    width: 976px;
+    max-width: calc(100% - 48px);
+    height: 41px;
+    padding: 0 6px;
+    border-radius: 20.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    margin: 30px auto 15px auto;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0 16px;
+    font-size: 15px;
+    color: #333333;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+}
+
+.search-input:focus,
+.search-input:focus-visible {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.search-button {
+    background-color: #36727d;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 124px;
+    height: 30px;
+    border-radius: 15px;
+}
+
+.search-button:hover {
+    background-color: #2a5a63;
+}
+
+.search-button:active {
+    transform: scale(0.90);
+}
+
+.suggestions-box {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 10px 16px;
+    font-size: 15px;
+    color: #333333;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.suggestion-item:hover {
+    background-color: #f2f2f2;
+}
+
+
+.weather-result-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    text-align: center;
+    background-color: #d9d9d9;
+    opacity: 0.67;
+    width: 976px;
+    max-width: calc(100% - 48px);
+    height: 45px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin: 0 auto 15px auto;
+    border-radius: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: #111111;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.weather-result-container span:first-child {
+    text-align: left;
+}
+
+.weather-result-container span:last-child {
+    text-align: right;
+}
+
+.weather-city {
+    font-weight: 500;
+}
+
+.weather-condition {
+    font-weight: 400;
+}
+
+.weather-icon {
+    font-size: 20px;
+}
+
+.weather-temp {
+    font-weight: 500;
+}
+
+.weather-time {
+    font-weight: 400;
+}
+
+/* 6 KARTĪŠU REŽĢIS */
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 976px;
+    max-width: calc(100% - 48px);
+    margin: 0 auto;
+}
+
+.weather-card {
+    background-color: #d9d9d9;
+    opacity: 0.67;
+    height: 110px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-title {
+    font-size: 18px;
+    color: #111111;
+    font-weight: 400;
+}
+
+.card-value {
+    font-size: 20px;
+    color: #111111;
+    font-weight: 500;
+}
+
+/* MOBILĀ VERSIJA */
+
+@media (max-width: 600px) {
+    .nav-in {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .links {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .search-container,
+    .weather-result-container,
+    .weather-grid {
+        width: calc(100% - 28px);
+    }
+
+    .weather-result-container {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+}
+.error-box {
+  background-color: #d8d8d8; /* Vai tavs pelēkais tonis */
+  border-radius: 20px;
+  width: 592px;
+  height: 156px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-title {
+  font-size: 20px;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.error-msg {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333333;
+} 
