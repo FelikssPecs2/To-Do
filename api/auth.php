@@ -27,13 +27,15 @@ if ($action === 'register') {
         "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
     );
     $stmt->execute([$name, $email, $hash]);
-
+    session_regenerate_id(true);
     $_SESSION['user_id'] = (int)$pdo->lastInsertId();
 
     out([
         'ok' => true,
         'id' => $_SESSION['user_id'],
-        'name' => $name
+        'name' => $name,
+        'role' => 'worker'
+
     ]);
 }
 
@@ -49,13 +51,14 @@ if ($action === 'login') {
     if (!$user || !password_verify($pw, $user['password'])) {
         out(['error' => 'Nepareizs e-pasts vai parole.']);
     }
-
+    session_regenerate_id(true);
     $_SESSION['user_id'] = (int)$user['id'];
 
     out([
         'ok' => true,
         'id' => $user['id'],
-        'name' => $user['name']
+        'name' => $user['name'],
+        'role' => $user['role']
     ]);
 }
 
@@ -72,7 +75,7 @@ if ($action === 'me') {
     }
 
     $stmt = $pdo->prepare(
-        "SELECT id, name, email FROM users WHERE id = ?"
+        "SELECT id, name, email, role FROM users WHERE id = ?"
     );
     $stmt->execute([currentUserId()]);
 
