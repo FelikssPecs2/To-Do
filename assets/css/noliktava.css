@@ -1,4 +1,3 @@
-
 .warehouse {
     max-width: 1180px;
     margin: 35px auto;
@@ -7,7 +6,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.warehouse-header {
+.warehouse .warehouse-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,20 +14,20 @@
     margin-bottom: 28px;
 }
 
-.warehouse-header h1 {
+.warehouse .warehouse-header h1 {
     margin: 0 0 7px;
     font-size: 28px;
     font-weight: 700;
 }
 
-.warehouse-header p,
-.section-heading p {
+.warehouse .warehouse-header p,
+.warehouse .section-heading p {
     margin: 0;
     color: #718096;
     font-size: 14px;
 }
 
-.user-info {
+.warehouse .user-info {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -36,7 +35,7 @@
     font-weight: 600;
 }
 
-.logout-button {
+.warehouse .logout-button {
     border: 0;
     border-radius: 8px;
     padding: 10px 16px;
@@ -46,11 +45,11 @@
     transition: background 0.2s;
 }
 
-.logout-button:hover {
+.warehouse .logout-button:hover {
     background: #293b65;
 }
 
-.warehouse-nav {
+.warehouse .warehouse-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -61,7 +60,7 @@
     border-radius: 12px;
 }
 
-.nav-button {
+.warehouse .nav-button {
     border: 0;
     border-radius: 8px;
     padding: 11px 18px;
@@ -72,41 +71,41 @@
     transition: 0.2s;
 }
 
-.nav-button:hover {
+.warehouse .nav-button:hover {
     background: #f1f5f9;
     color: #16213e;
 }
 
-.nav-button.active {
+.warehouse .nav-button.active {
     background: #2563eb;
     color: #fff;
 }
 
-.content-section {
+.warehouse .content-section {
     display: none;
 }
 
-.content-section.active {
+.warehouse .content-section.active {
     display: block;
 }
 
-.section-heading {
+.warehouse .section-heading {
     margin-bottom: 22px;
 }
 
-.section-heading h2 {
+.warehouse .section-heading h2 {
     margin: 0 0 7px;
     font-size: 23px;
 }
 
-.stats-grid {
+.warehouse .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
     margin-bottom: 22px;
 }
 
-.stat-card {
+.warehouse .stat-card {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -116,17 +115,17 @@
     border-radius: 12px;
 }
 
-.stat-card span {
+.warehouse .stat-card span {
     color: #718096;
     font-size: 14px;
 }
 
-.stat-card strong {
+.warehouse .stat-card strong {
     color: #16213e;
     font-size: 28px;
 }
 
-.panel {
+.warehouse .panel {
     padding: 22px;
     margin-bottom: 20px;
     background: #fff;
@@ -134,33 +133,33 @@
     border-radius: 12px;
 }
 
-.panel h3 {
+.warehouse .panel h3 {
     margin: 0 0 20px;
     font-size: 17px;
 }
 
-.form-grid {
+.warehouse .form-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 17px;
     margin-bottom: 18px;
 }
 
-.form-group {
+.warehouse .form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.form-group label {
+.warehouse .form-group label {
     color: #475569;
     font-size: 13px;
     font-weight: 600;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
+.warehouse .form-group input,
+.warehouse .form-group select,
+.warehouse .form-group textarea {
     width: 100%;
     box-sizing: border-box;
     padding: 11px 13px;
@@ -174,28 +173,28 @@
     transition: border-color 0.2s;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+.warehouse .form-group input:focus,
+.warehouse .form-group select:focus,
+.warehouse .form-group textarea:focus {
     border-color: #2563eb;
 }
 
-.form-group textarea {
+.warehouse .form-group textarea {
     resize: vertical;
 }
 
-.full-width {
+.warehouse .full-width {
     grid-column: 1 / -1;
 }
 
-.form-actions {
+.warehouse .form-actions {
     display: flex;
     gap: 10px;
 }
 
-.primary-button,
-.secondary-button,
-.action-button {
+.warehouse .primary-button,
+.warehouse .secondary-button,
+.warehouse .action-button {
     border: 0;
     border-radius: 8px;
     padding: 11px 17px;
@@ -205,67 +204,67 @@
     transition: 0.2s;
 }
 
-.primary-button {
+.warehouse .primary-button {
     background: #2563eb;
     color: #fff;
 }
 
-.primary-button:hover {
+.warehouse .primary-button:hover {
     background: #1d4ed8;
 }
 
-.secondary-button {
+.warehouse .secondary-button {
     background: #e8edf5;
     color: #334155;
 }
 
-.secondary-button:hover {
+.warehouse .secondary-button:hover {
     background: #dbe3ef;
 }
 
-.table-wrapper {
+.warehouse .table-wrapper {
     width: 100%;
     overflow-x: auto;
 }
 
-table {
+.warehouse table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
     font-size: 13px;
 }
 
-thead {
+.warehouse thead {
     background: #f8fafc;
 }
 
-th {
+.warehouse th {
     color: #64748b;
     font-weight: 600;
     white-space: nowrap;
 }
 
-th,
-td {
+.warehouse th,
+.warehouse td {
     padding: 14px 12px;
     border-bottom: 1px solid #edf0f5;
 }
 
-td {
+.warehouse td {
     color: #334155;
 }
 
-tbody tr:last-child td {
+.warehouse tbody tr:last-child td {
     border-bottom: 0;
 }
 
-.empty-state {
+.warehouse .empty-state {
     padding: 25px;
     color: #94a3b8;
     text-align: center;
 }
 
-.status {
+.warehouse .status {
     display: inline-block;
     padding: 5px 9px;
     border-radius: 20px;
@@ -273,48 +272,29 @@ tbody tr:last-child td {
     font-weight: 600;
 }
 
-.status-active,
-.status-completed {
+.warehouse .status-active,
+.warehouse .status-completed {
     background: #dcfce7;
     color: #15803d;
 }
 
-.status-inactive,
-.status-cancelled {
+.warehouse .status-inactive,
+.warehouse .status-cancelled {
     background: #fee2e2;
     color: #b91c1c;
 }
 
-.status-pending {
+.warehouse .status-pending {
     background: #fef3c7;
     color: #a16207;
 }
 
-.status-processing {
+.warehouse .status-processing {
     background: #dbeafe;
     color: #1d4ed8;
 }
 
-.action-button {
-    margin: 2px;
-    padding: 7px 10px;
-}
-
-.edit-button {
-    background: #dbeafe;
-    color: #1d4ed8;
-}
-
-.delete-button {
-    background: #fee2e2;
-    color: #b91c1c;
-}
-
-.action-button:hover {
-    filter: brightness(0.95);
-}
-
-.status-select {
+.warehouse .status-select {
     padding: 7px;
     border: 1px solid #dbe2ea;
     border-radius: 7px;
@@ -322,13 +302,32 @@ tbody tr:last-child td {
     color: #334155;
 }
 
-.report-stats {
+.warehouse .action-button {
+    margin: 2px;
+    padding: 7px 10px;
+}
+
+.warehouse .edit-button {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.warehouse .delete-button {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.warehouse .action-button:hover {
+    filter: brightness(0.95);
+}
+
+.warehouse .report-stats {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 15px;
 }
 
-.report-stats div {
+.warehouse .report-stats div {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -337,16 +336,16 @@ tbody tr:last-child td {
     background: #f8fafc;
 }
 
-.report-stats span {
+.warehouse .report-stats span {
     color: #64748b;
     font-size: 13px;
 }
 
-.report-stats strong {
+.warehouse .report-stats strong {
     font-size: 23px;
 }
 
-.message {
+.warehouse .message {
     display: none;
     padding: 12px 16px;
     margin-bottom: 18px;
@@ -354,20 +353,31 @@ tbody tr:last-child td {
     font-size: 14px;
 }
 
-.message.success {
+.warehouse .message.success {
     display: block;
     background: #dcfce7;
     color: #166534;
 }
 
-.message.error {
+.warehouse .message.error {
     display: block;
     background: #fee2e2;
     color: #991b1b;
 }
 
-[hidden] {
+.warehouse [hidden] {
     display: none !important;
+}
+
+@media (max-width: 900px) {
+    .warehouse {
+        margin-top: 25px;
+    }
+
+    .warehouse main {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 @media (max-width: 700px) {
@@ -376,42 +386,42 @@ tbody tr:last-child td {
         padding: 0 12px 30px;
     }
 
-    .warehouse-header {
+    .warehouse .warehouse-header {
         align-items: flex-start;
         flex-direction: column;
     }
 
-    .warehouse-header h1 {
+    .warehouse .warehouse-header h1 {
         font-size: 23px;
     }
 
-    .warehouse-nav {
+    .warehouse .warehouse-nav {
         gap: 5px;
     }
 
-    .nav-button {
+    .warehouse .nav-button {
         flex: 1 1 auto;
         padding: 10px;
         font-size: 12px;
     }
 
-    .form-grid {
+    .warehouse .form-grid {
         grid-template-columns: 1fr;
     }
 
-    .full-width {
+    .warehouse .full-width {
         grid-column: auto;
     }
 
-    .report-stats {
+    .warehouse .report-stats {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .panel {
+    .warehouse .panel {
         padding: 16px;
     }
 
-    .stats-grid {
+    .warehouse .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }

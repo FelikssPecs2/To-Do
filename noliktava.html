@@ -5,34 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noliktava – ToDo</title>
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/noliktava.css">
+    <link rel="stylesheet" href="assets/css/noliktava-sidebar.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
+    <nav class="nav">
+        <div class="nav-in">
+            <a class="logo-box" href="dashboard.html">
+                <img src="assets/img/logo.png" alt="ToDo">
+            </a>
+            <nav class="links" id="nav">
+                <a href="dashboard.html">Pārskats</a>
+                <a href="tasks.html">Mani uzdevumi</a>
+                <a href="projects.html">Projekti</a>
+                <a href="invitations.html">Uzaicinājumi</a>
+                <a href="weather.html">Laikapstākļi</a>
+                <a href="noliktava.html" class="on">Noliktava</a>
+                <a href="login.html">Izrakstīties</a>
+            </nav>
+        </div>
+    </nav>
+
     <div class="warehouse">
-        <header class="warehouse-header">
-            <div>
-                <h1>Noliktavas pārvaldība</h1>
-                <p>Produktu, atrašanās vietu un pasūtījumu pārvaldība</p>
-            </div>
+        <div class="warehouse-layout">
+            <aside class="warehouse-sidebar">
+                <h2>Noliktava</h2>
+                <nav class="warehouse-nav">
+                    <button class="nav-button active" data-section="overview">Pārskats</button>
+                    <button class="nav-button" data-section="products">Produkti</button>
+                    <button class="nav-button" data-section="locations">Atrašanās vietas</button>
+                    <button class="nav-button" data-section="orders">Pasūtījumi</button>
+                    <button class="nav-button" data-section="reports">Atskaites</button>
+                </nav>
+            </aside>
 
-            <div class="user-info">
-                <span id="user-name">Lietotājs</span>
-                <button id="logout-button" class="logout-button">Izrakstīties</button>
-            </div>
-        </header>
+            <div class="warehouse-content">
+                <header class="warehouse-header">
+                    <div>
+                        <h1>Noliktavas pārvaldība</h1>
+                        <p>Produktu, atrašanās vietu un pasūtījumu pārvaldība</p>
+                    </div>
+                    <div class="user-info">
+                        <span id="user-name">Lietotājs</span>
+                        <button id="logout-button" class="logout-button">Izrakstīties</button>
+                    </div>
+                </header>
 
-        <nav class="warehouse-nav">
-            <button class="nav-button active" data-section="overview">Pārskats</button>
-            <button class="nav-button" data-section="products">Produkti</button>
-            <button class="nav-button" data-section="locations">Atrašanās vietas</button>
-            <button class="nav-button" data-section="orders">Pasūtījumi</button>
-            <button class="nav-button" data-section="reports">Atskaites</button>
-        </nav>
+                <div id="message" class="message"></div>
 
-        <div id="message" class="message"></div>
-
-        <main>
+                <main>
             <section id="overview-section" class="content-section active">
                 <div class="section-heading">
                     <h2>Pārskats</h2>
@@ -370,7 +393,9 @@
                     </div>
                 </div>
             </section>
-        </main>
+                </main>
+            </div>
+        </div>
     </div>
 
     <script src="assets/js/noliktava.js"></script>
