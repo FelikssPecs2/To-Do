@@ -1,4 +1,3 @@
-
 <?php
 require 'db.php';
 
@@ -14,21 +13,21 @@ $products = $pdo->query("
         COALESCE(SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END), 0) AS active_products,
         COALESCE(SUM(CASE WHEN status = 'inactive' THEN 1 ELSE 0 END), 0) AS inactive_products
     FROM products
-")->fetch();
+")->fetch(PDO::FETCH_ASSOC);
 
 $stock = $pdo->query("
     SELECT
         p.id,
         p.name,
         p.sku,
-        p.quantity AS quantity,
-        p.quantity AS total_quantity,
+        p.quantity,
+        p.status,
         COALESCE(SUM(pl.quantity), 0) AS located_quantity
     FROM products p
     LEFT JOIN product_locations pl ON p.id = pl.product_id
-    GROUP BY p.id, p.name, p.sku, p.quantity
+    GROUP BY p.id, p.name, p.sku, p.quantity, p.status
     ORDER BY p.name
-")->fetchAll();
+")->fetchAll(PDO::FETCH_ASSOC);
 
 $locations = $pdo->query("
     SELECT
@@ -36,13 +35,12 @@ $locations = $pdo->query("
         wl.zone,
         wl.shelf,
         COUNT(DISTINCT pl.product_id) AS product_count,
-        COALESCE(SUM(pl.quantity), 0) AS quantity,
-        COALESCE(SUM(pl.quantity), 0) AS total_quantity
+        COALESCE(SUM(pl.quantity), 0) AS quantity
     FROM warehouse_locations wl
     LEFT JOIN product_locations pl ON wl.id = pl.location_id
     GROUP BY wl.id, wl.zone, wl.shelf
     ORDER BY wl.zone, wl.shelf
-")->fetchAll();
+")->fetchAll(PDO::FETCH_ASSOC);
 
 $locationStock = $pdo->query("
     SELECT
@@ -52,12 +50,13 @@ $locationStock = $pdo->query("
         p.id AS product_id,
         p.name AS product_name,
         p.sku,
+        p.status,
         COALESCE(pl.quantity, 0) AS quantity
     FROM warehouse_locations wl
     LEFT JOIN product_locations pl ON wl.id = pl.location_id
     LEFT JOIN products p ON pl.product_id = p.id
     ORDER BY wl.zone, wl.shelf, p.name
-")->fetchAll();
+")->fetchAll(PDO::FETCH_ASSOC);
 
 $report = [
     'products' => $products,
@@ -75,7 +74,7 @@ if ($role === 'admin' || $role === 'worker') {
             COALESCE(SUM(status = 'completed'), 0) AS completed_orders,
             COALESCE(SUM(status = 'cancelled'), 0) AS cancelled_orders
         FROM orders
-    ")->fetch();
+    ")->fetch(PDO::FETCH_ASSOC);
 
     $report['orders'] = $orders;
 
@@ -90,10 +89,10 @@ if ($role === 'admin' || $role === 'worker') {
             sm.created_at
         FROM stock_movements sm
         JOIN products p ON sm.product_id = p.id
-        JOIN users u ON sm.user_id = u.id
+        LEFT JOIN users u ON sm.user_id = u.id
         ORDER BY sm.created_at DESC, sm.id DESC
         LIMIT 50
-    ")->fetchAll();
+    ")->fetchAll(PDO::FETCH_ASSOC);
 
     $report['stock_movements'] = $movements;
 }

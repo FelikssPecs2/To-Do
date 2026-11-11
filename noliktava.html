@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="lv">
 <head>
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="assets/css/noliktava.css">
     <link rel="stylesheet" href="assets/css/noliktava-sidebar.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
 </head>
 <body>
     <nav class="nav">
@@ -38,6 +36,7 @@
                     <button class="nav-button" data-section="locations">Atrašanās vietas</button>
                     <button class="nav-button" data-section="orders">Pasūtījumi</button>
                     <button class="nav-button" data-section="reports">Atskaites</button>
+                    <button class="nav-button" data-section="users" id="users-nav-button" hidden>Lietotāju pārvaldība</button>
                 </nav>
             </aside>
 
@@ -56,343 +55,183 @@
                 <div id="message" class="message"></div>
 
                 <main>
-            <section id="overview-section" class="content-section active">
-                <div class="section-heading">
-                    <h2>Pārskats</h2>
-                    <p>Galvenā informācija par noliktavu</p>
-                </div>
+                    <section id="overview-section" class="content-section active">
+                        <div class="section-heading">
+                            <h2>Pārskats</h2>
+                            <p>Galvenā informācija par noliktavu</p>
+                        </div>
 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span>Kopā produktu</span>
-                        <strong id="total-products">0</strong>
-                    </div>
+                        <div class="stats-grid">
+                            <div class="stat-card"><span>Kopā produktu</span><strong id="total-products">0</strong></div>
+                            <div class="stat-card"><span>Kopējais atlikums</span><strong id="total-quantity">0</strong></div>
+                            <div class="stat-card"><span>Aktīvie produkti</span><strong id="active-products">0</strong></div>
+                            <div class="stat-card"><span>Neaktīvie produkti</span><strong id="inactive-products">0</strong></div>
+                            <div class="stat-card"><span>Kopā pasūtījumu</span><strong id="total-orders">0</strong></div>
+                        </div>
 
-                    <div class="stat-card">
-                        <span>Kopējais atlikums</span>
-                        <strong id="total-quantity">0</strong>
-                    </div>
-
-                    <div class="stat-card">
-                        <span>Aktīvie produkti</span>
-                        <strong id="active-products">0</strong>
-                    </div>
-
-                    <div class="stat-card">
-                        <span>Neaktīvie produkti</span>
-                        <strong id="inactive-products">0</strong>
-                    </div>
-
-                    <div class="stat-card">
-                        <span>Kopā pasūtījumu</span>
-                        <strong id="total-orders">0</strong>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <h3>Noliktavas atlikumi</h3>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Produkts</th>
-                                    <th>Zona</th>
-                                    <th>Plaukts</th>
-                                    <th>Daudzums</th>
-                                </tr>
-                            </thead>
-                            <tbody id="overview-stock">
-                                <tr>
-                                    <td colspan="4" class="empty-state">Nav pieejamu datu</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section id="products-section" class="content-section">
-                <div class="section-heading">
-                    <h2>Produkti</h2>
-                    <p>Produktu pievienošana un pārvaldība</p>
-                </div>
-
-                <div class="panel" id="product-form-panel">
-                    <h3 id="product-form-title">Pievienot produktu</h3>
-
-                    <form id="product-form">
-                        <input type="hidden" id="product-id">
-
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="product-name">Produkta nosaukums</label>
-                                <input type="text" id="product-name" required maxlength="150">
+                        <div class="panel">
+                            <h3>Noliktavas atlikumi</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Produkts</th><th>Zona</th><th>Plaukts</th><th>Daudzums</th></tr></thead>
+                                    <tbody id="overview-stock"><tr><td colspan="4" class="empty-state">Nav pieejamu datu</td></tr></tbody>
+                                </table>
                             </div>
+                        </div>
+                    </section>
 
-                            <div class="form-group">
-                                <label for="product-sku">Produkta kods (SKU)</label>
-                                <input type="text" id="product-sku" required maxlength="100">
+                    <section id="products-section" class="content-section">
+                        <div class="section-heading"><h2>Produkti</h2><p>Produktu pievienošana un pārvaldība</p></div>
+                        <div class="panel" id="product-form-panel">
+                            <h3 id="product-form-title">Pievienot produktu</h3>
+                            <form id="product-form">
+                                <input type="hidden" id="product-id">
+                                <div class="form-grid">
+                                    <div class="form-group"><label for="product-name">Produkta nosaukums</label><input type="text" id="product-name" required maxlength="150"></div>
+                                    <div class="form-group"><label for="product-sku">Produkta kods (SKU)</label><input type="text" id="product-sku" required maxlength="100"></div>
+                                    <div class="form-group"><label for="product-quantity">Daudzums</label><input type="number" id="product-quantity" min="0" required></div>
+                                    <div class="form-group"><label for="product-price">Cena (€)</label><input type="number" id="product-price" min="0" step="0.01" required></div>
+                                    <div class="form-group full-width"><label for="product-description">Apraksts</label><textarea id="product-description" rows="3"></textarea></div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-button" id="product-submit">Pievienot produktu</button>
+                                    <button type="button" class="secondary-button" id="product-cancel" hidden>Atcelt</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="panel">
+                            <h3>Produktu saraksts</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Nosaukums</th><th>SKU</th><th>Daudzums</th><th>Cena</th><th>Statuss</th><th id="product-actions-heading">Darbības</th></tr></thead>
+                                    <tbody id="products-table"><tr><td colspan="6" class="empty-state">Nav produktu</td></tr></tbody>
+                                </table>
                             </div>
+                        </div>
+                    </section>
 
-                            <div class="form-group">
-                                <label for="product-quantity">Daudzums</label>
-                                <input type="number" id="product-quantity" min="0" required>
+                    <section id="locations-section" class="content-section">
+                        <div class="section-heading"><h2>Atrašanās vietas</h2><p>Noliktavas zonu un plauktu pārvaldība</p></div>
+                        <div class="panel" id="location-form-panel">
+                            <h3>Pievienot plauktu</h3>
+                            <form id="location-form">
+                                <div class="form-grid">
+                                    <div class="form-group"><label for="location-zone">Zona</label><input type="text" id="location-zone" required maxlength="50"></div>
+                                    <div class="form-group"><label for="location-shelf">Plaukts</label><input type="text" id="location-shelf" required maxlength="50"></div>
+                                    <div class="form-group full-width"><label for="location-description">Apraksts</label><textarea id="location-description" rows="3"></textarea></div>
+                                </div>
+                                <button type="submit" class="primary-button">Pievienot plauktu</button>
+                            </form>
+                        </div>
+                        <div class="panel" id="location-assignment-panel">
+                            <h3>Pievienot produktu plauktam</h3>
+                            <form id="location-assignment-form">
+                                <div class="form-grid">
+                                    <div class="form-group"><label for="location-product">Produkts</label><select id="location-product" required><option value="">Izvēlies produktu</option></select></div>
+                                    <div class="form-group"><label for="location-select">Atrašanās vieta</label><select id="location-select" required><option value="">Izvēlies plauktu</option></select></div>
+                                    <div class="form-group"><label for="location-quantity">Daudzums</label><input type="number" id="location-quantity" min="0" required></div>
+                                </div>
+                                <button type="submit" class="primary-button">Saglabāt atrašanās vietu</button>
+                            </form>
+                        </div>
+                        <div class="panel">
+                            <h3>Produktu atrašanās vietas</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Produkts</th><th>Zona</th><th>Plaukts</th><th>Daudzums</th></tr></thead>
+                                    <tbody id="locations-table"><tr><td colspan="4" class="empty-state">Nav pieejamu atrašanās vietu</td></tr></tbody>
+                                </table>
                             </div>
+                        </div>
+                    </section>
 
-                            <div class="form-group">
-                                <label for="product-price">Cena (€)</label>
-                                <input type="number" id="product-price" min="0" step="0.01" required>
+                    <section id="orders-section" class="content-section">
+                        <div class="section-heading"><h2>Pasūtījumi</h2><p>Jaunu pasūtījumu izveide un pārvaldība</p></div>
+                        <div class="panel" id="order-form-panel">
+                            <h3>Izveidot pasūtījumu</h3>
+                            <form id="order-form">
+                                <div class="form-grid">
+                                    <div class="form-group"><label for="order-product">Produkts</label><select id="order-product" required><option value="">Izvēlies produktu</option></select></div>
+                                    <div class="form-group"><label for="order-quantity">Daudzums</label><input type="number" id="order-quantity" min="1" value="1" required></div>
+                                    <div class="form-group full-width"><label for="order-notes">Piezīmes</label><textarea id="order-notes" rows="3"></textarea></div>
+                                </div>
+                                <button type="submit" class="primary-button">Izveidot pasūtījumu</button>
+                            </form>
+                        </div>
+                        <div class="panel">
+                            <h3>Pasūtījumu saraksts</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Pasūtījuma numurs</th><th>Statuss</th><th>Izveidoja</th><th>Datums</th><th>Darbības</th></tr></thead>
+                                    <tbody id="orders-table"><tr><td colspan="5" class="empty-state">Nav pasūtījumu</td></tr></tbody>
+                                </table>
                             </div>
+                        </div>
+                    </section>
 
-                            <div class="form-group full-width">
-                                <label for="product-description">Apraksts</label>
-                                <textarea id="product-description" rows="3"></textarea>
+                    <section id="reports-section" class="content-section">
+                        <div class="section-heading">
+                            <div>
+                                <h2>Atskaites</h2>
+                                <p>Noliktavas darbības un produktu statistika</p>
+                                <p id="report-generated-at"></p>
+                            </div>
+                            <button type="button" class="primary-button" id="generate-report-button">Ģenerēt pārskatu</button>
+                        </div>
+
+                        <div class="panel">
+                            <h3>Produktu atlikumi un stāvoklis</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Produkts</th><th>SKU</th><th>Daudzums</th><th>Stāvoklis</th></tr></thead>
+                                    <tbody id="report-stock"><tr><td colspan="4" class="empty-state">Nav datu</td></tr></tbody>
+                                </table>
                             </div>
                         </div>
 
-                        <div class="form-actions">
-                            <button type="submit" class="primary-button" id="product-submit">Pievienot produktu</button>
-                            <button type="button" class="secondary-button" id="product-cancel" hidden>Atcelt</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="panel">
-                    <h3>Produktu saraksts</h3>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nosaukums</th>
-                                    <th>SKU</th>
-                                    <th>Daudzums</th>
-                                    <th>Cena</th>
-                                    <th>Statuss</th>
-                                    <th id="product-actions-heading">Darbības</th>
-                                </tr>
-                            </thead>
-                            <tbody id="products-table">
-                                <tr>
-                                    <td colspan="6" class="empty-state">Nav produktu</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section id="locations-section" class="content-section">
-                <div class="section-heading">
-                    <h2>Atrašanās vietas</h2>
-                    <p>Noliktavas zonu un plauktu pārvaldība</p>
-                </div>
-
-                <div class="panel" id="location-form-panel">
-                    <h3>Pievienot plauktu</h3>
-
-                    <form id="location-form">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="location-zone">Zona</label>
-                                <input type="text" id="location-zone" required maxlength="50">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="location-shelf">Plaukts</label>
-                                <input type="text" id="location-shelf" required maxlength="50">
-                            </div>
-
-                            <div class="form-group full-width">
-                                <label for="location-description">Apraksts</label>
-                                <textarea id="location-description" rows="3"></textarea>
+                        <div class="panel">
+                            <h3>Atrašanās vietas</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Zona</th><th>Plaukts</th><th>Produktu daudzums</th></tr></thead>
+                                    <tbody id="report-locations"><tr><td colspan="3" class="empty-state">Nav datu</td></tr></tbody>
+                                </table>
                             </div>
                         </div>
 
-                        <button type="submit" class="primary-button">Pievienot plauktu</button>
-                    </form>
-                </div>
-
-                <div class="panel" id="location-assignment-panel">
-                    <h3>Pievienot produktu plauktam</h3>
-                    <form id="location-assignment-form">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="location-product">Produkts</label>
-                                <select id="location-product" required>
-                                    <option value="">Izvēlies produktu</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="location-select">Atrašanās vieta</label>
-                                <select id="location-select" required>
-                                    <option value="">Izvēlies plauktu</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="location-quantity">Daudzums</label>
-                                <input type="number" id="location-quantity" min="0" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="primary-button">Saglabāt atrašanās vietu</button>
-                    </form>
-                </div>
-
-                <div class="panel">
-                    <h3>Produktu atrašanās vietas</h3>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Produkts</th>
-                                    <th>Zona</th>
-                                    <th>Plaukts</th>
-                                    <th>Daudzums</th>
-                                </tr>
-                            </thead>
-                            <tbody id="locations-table">
-                                <tr>
-                                    <td colspan="4" class="empty-state">Nav pieejamu atrašanās vietu</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section id="orders-section" class="content-section">
-                <div class="section-heading">
-                    <h2>Pasūtījumi</h2>
-                    <p>Jaunu pasūtījumu izveide un pārvaldība</p>
-                </div>
-
-                <div class="panel" id="order-form-panel">
-                    <h3>Izveidot pasūtījumu</h3>
-
-                    <form id="order-form">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="order-product">Produkts</label>
-                                <select id="order-product" required>
-                                    <option value="">Izvēlies produktu</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="order-quantity">Daudzums</label>
-                                <input type="number" id="order-quantity" min="1" value="1" required>
-                            </div>
-
-                            <div class="form-group full-width">
-                                <label for="order-notes">Piezīmes</label>
-                                <textarea id="order-notes" rows="3"></textarea>
+                        <div class="panel" id="report-orders-panel">
+                            <h3>Pasūtījumu statistika</h3>
+                            <div class="report-stats">
+                                <div><span>Gaida</span><strong id="report-pending">0</strong></div>
+                                <div><span>Apstrādē</span><strong id="report-processing">0</strong></div>
+                                <div><span>Pabeigti</span><strong id="report-completed">0</strong></div>
+                                <div><span>Atcelti</span><strong id="report-cancelled">0</strong></div>
                             </div>
                         </div>
 
-                        <button type="submit" class="primary-button">Izveidot pasūtījumu</button>
-                    </form>
-                </div>
+                        <div class="panel" id="report-movements-panel">
+                            <h3>Produktu kustību vēsture</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Produkts</th><th>Darbība</th><th>Daudzums</th><th>Lietotājs</th><th>Datums</th></tr></thead>
+                                    <tbody id="report-movements"><tr><td colspan="5" class="empty-state">Nav kustību</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
 
-                <div class="panel">
-                    <h3>Pasūtījumu saraksts</h3>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Pasūtījuma numurs</th>
-                                    <th>Statuss</th>
-                                    <th>Izveidoja</th>
-                                    <th>Datums</th>
-                                    <th>Darbības</th>
-                                </tr>
-                            </thead>
-                            <tbody id="orders-table">
-                                <tr>
-                                    <td colspan="5" class="empty-state">Nav pasūtījumu</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section id="reports-section" class="content-section">
-                <div class="section-heading">
-                    <h2>Atskaites</h2>
-                    <p>Noliktavas darbības un produktu statistika</p>
-                </div>
-
-                <div class="panel">
-                    <h3>Produktu atlikumi</h3>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Produkts</th>
-                                    <th>SKU</th>
-                                    <th>Daudzums</th>
-                                </tr>
-                            </thead>
-                            <tbody id="report-stock">
-                                <tr>
-                                    <td colspan="3" class="empty-state">Nav datu</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <h3>Atrašanās vietas</h3>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Zona</th>
-                                    <th>Plaukts</th>
-                                    <th>Produktu daudzums</th>
-                                </tr>
-                            </thead>
-                            <tbody id="report-locations">
-                                <tr>
-                                    <td colspan="3" class="empty-state">Nav datu</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="panel" id="report-orders-panel">
-                    <h3>Pasūtījumu statistika</h3>
-                    <div class="report-stats">
-                        <div><span>Gaida</span><strong id="report-pending">0</strong></div>
-                        <div><span>Apstrādē</span><strong id="report-processing">0</strong></div>
-                        <div><span>Pabeigti</span><strong id="report-completed">0</strong></div>
-                        <div><span>Atcelti</span><strong id="report-cancelled">0</strong></div>
-                    </div>
-                </div>
-
-                <div class="panel" id="report-movements-panel">
-                    <h3>Produktu kustību vēsture</h3>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Produkts</th>
-                                    <th>Darbība</th>
-                                    <th>Daudzums</th>
-                                    <th>Lietotājs</th>
-                                    <th>Datums</th>
-                                </tr>
-                            </thead>
-                            <tbody id="report-movements">
-                                <tr>
-                                    <td colspan="5" class="empty-state">Nav kustību</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
+                    <section id="users-section" class="content-section">
+                        <div class="section-heading"><h2>Lietotāju pārvaldība</h2><p>Reģistrēto lietotāju kontu pārvaldība</p></div>
+                        <div class="panel">
+                            <h3>Lietotāju saraksts</h3>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Vārds</th><th>E-pasts</th><th>Loma</th><th>Reģistrācijas datums</th><th>Darbības</th></tr></thead>
+                                    <tbody id="users-table"><tr><td colspan="5" class="empty-state">Notiek ielāde...</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
                 </main>
             </div>
         </div>

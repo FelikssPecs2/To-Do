@@ -425,3 +425,19 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
+.role-select {
+    padding: 8px 12px;
+    border: 1px solid #d5dce5;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #16213e;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 140px;
+}
+
+.role-select:focus {
+    outline: none;
+    border-color: #36727d;
+    box-shadow: 0 0 0 2px rgba(54, 114, 125, 0.12);
+}
